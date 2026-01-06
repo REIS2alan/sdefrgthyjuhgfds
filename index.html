@@ -3,297 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infinity | Alan & Você</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;600&family=Playfair+Display:ital,wght@1,400;1,900&display=swap" rel="stylesheet">
+    <title>Para Nós | 423 Dias</title>
+    <!-- Fontes Elegantes -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #c5a059;
-            --white: #ffffff;
-            --bg: #050505;
+            --bg: #fcfaf8;
+            --accent: #6b0d1a;
+            --text: #2c2c2c;
+            --glass: rgba(255, 255, 255, 0.8);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { box-sizing: border-box; }
 
         body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg);
-            color: var(--white);
-            font-family: 'Outfit', sans-serif;
-            overflow: hidden; /* Trava o scroll no início */
-            height: 100vh;
-        }
-
-        /* TELA DE ENTRADA (O MISTÉRIO) */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: #000;
-            z-index: 1000;
+            color: var(--text);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            transition: 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+            overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        .heart-btn {
-            width: 80px;
-            height: 80px;
-            background: transparent;
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-            font-size: 1.5rem;
-            animation: pulse 2s infinite;
-            transition: 0.5s;
-        }
-
-        .heart-btn:hover { background: var(--gold); color: #000; }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.4); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 20px rgba(197, 160, 89, 0); }
-            100% { transform: scale(1); }
-        }
-
-        /* FUNDO DE ESTRELAS 3D */
-        #canvas-container {
+        .bg-gradient {
             position: fixed;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(107, 13, 26, 0.03) 0%, transparent 40%);
             z-index: -1;
-            perspective: 1000px;
         }
 
-        .star {
-            position: absolute;
-            background: #fff;
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: moveStar linear infinite;
-        }
-
-        @keyframes moveStar {
-            from { transform: translateZ(0); }
-            to { transform: translateZ(1000px); }
-        }
-
-        /* CONTEÚDO PRINCIPAL */
-        #main-content {
-            height: 100vh;
-            overflow-y: auto;
-            scroll-snap-type: y mandatory;
+        .container {
+            max-width: 800px;
+            width: 90%;
+            padding: 80px 0;
             opacity: 0;
-            transition: 2s;
+            animation: fadeIn 1.5s forwards;
         }
 
-        section {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            scroll-snap-align: start;
-            position: relative;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .title-reveal {
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 10vw, 7rem);
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 400;
+            margin: 0;
+            color: var(--accent);
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-weight: 900;
-            background: linear-gradient(to bottom, #fff, #666);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: 1s;
+            font-size: 1.2rem;
+            opacity: 0.7;
         }
 
-        .active .title-reveal { opacity: 1; transform: translateY(0); }
-
-        /* O CONTADOR GIGANTE */
-        .big-number {
-            font-size: clamp(5rem, 20vw, 15rem);
-            font-weight: 100;
-            line-height: 1;
-            color: var(--gold);
-            font-variant-numeric: tabular-nums;
+        .timer-section {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 2px;
+            border: 1px solid rgba(0,0,0,0.05);
+            text-align: center;
+            margin-bottom: 60px;
         }
 
-        /* GALERIA FLUTUANTE */
-        .floating-gallery {
+        .timer-label {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.7rem;
+            margin-bottom: 20px;
+            display: block;
+            font-weight: 600;
+            opacity: 0.5;
+        }
+
+        .main-counter {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .detailed-counter {
             display: flex;
+            justify-content: center;
             gap: 20px;
-            perspective: 1000px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            padding-top: 20px;
         }
 
-        .photo-card {
-            width: 200px;
-            height: 300px;
-            background: #111;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 10px;
-            transform: rotateY(20deg);
-            transition: 0.8s;
+        .detailed-counter div span {
+            display: block;
+            font-weight: 600;
+            color: var(--accent);
         }
 
-        .photo-card img {
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            background: #eee;
+            aspect-ratio: 4/5;
+        }
+
+        .gallery-item:nth-child(even) {
+            transform: translateY(30px);
+        }
+
+        .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: saturate(0);
-            transition: 0.5s;
+            filter: grayscale(20%);
+            transition: 0.6s all;
         }
 
-        .photo-card:hover {
-            transform: rotateY(0deg) scale(1.1);
-            z-index: 10;
-            border-color: var(--gold);
+        .gallery-item:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
         }
 
-        .photo-card:hover img { filter: saturate(1); }
-
-        /* MENSAGEM FINAL "HOLD TO REVEAL" */
-        .hold-box {
+        .quote-section {
             text-align: center;
-        }
-
-        #secret-message {
-            opacity: 0;
-            transition: 1s;
-            max-width: 600px;
-            font-size: 1.2rem;
-            color: var(--gold);
-        }
-
-        .hold-btn {
-            margin-top: 30px;
-            padding: 20px 40px;
-            border: 1px solid #fff;
-            background: transparent;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 5px;
+            max-width: 500px;
+            margin: 80px auto;
             cursor: pointer;
-            user-select: none;
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            line-height: 1.4;
+            font-style: italic;
         }
 
         footer {
-            position: absolute;
-            bottom: 20px;
-            font-size: 0.6rem;
-            letter-spacing: 3px;
-            opacity: 0.3;
+            text-align: center;
+            padding: 40px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.4;
         }
 
+        @media (max-width: 600px) {
+            .gallery { grid-template-columns: 1fr; }
+            .gallery-item:nth-child(even) { transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
-    <div id="loader">
-        <p style="margin-bottom: 20px; letter-spacing: 5px; font-weight: 100;">VOCÊ RECEBEU UM PRESENTE</p>
-        <button class="heart-btn" onclick="startExperience()">❤</button>
+    <div class="bg-gradient"></div>
+
+    <div class="container">
+        <header>
+            <h1>Nós Dois</h1>
+            <span class="subtitle">A história mais bonita que eu já escrevi.</span>
+        </header>
+
+        <section class="timer-section">
+            <span class="timer-label">Tempo percorrido</span>
+            <div class="main-counter" id="total-days">423 dias</div>
+
+            <div class="detailed-counter">
+                <div><span id="years">0</span> anos</div>
+                <div><span id="months">0</span> meses</div>
+                <div><span id="days">0</span> dias</div>
+                <div><span id="hours">00</span>h</div>
+                <div><span id="mins">00</span>m</div>
+                <div><span id="secs">00</span>s</div>
+            </div>
+        </section>
+
+        <section class="gallery">
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/TLjDYdPZ/8EE59CC8_D9F7_4897_A064_C1B3986E4175.jpg" alt="Foto 1">
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/7G12YH6L/EB4C5835_415D_4F6B_B9F2_185570B49C42.jpg" alt="Foto 2">
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/jnsJDpwW/IMG_1614.jpg" alt="Foto 3">
+            </div>
+            <div class="gallery-item">
+                <img src="https://i.postimg.cc/xN0bXwJm/IMG_1620.jpg" alt="Foto 4">
+            </div>
+        </section>
+
+        <section class="quote-section" onclick="updateQuote()">
+            <div class="quote-text" id="quote">
+                "O amor é a única coisa que transcende o tempo."
+            </div>
+            <p style="font-size: 0.7rem; margin-top: 20px; opacity: 0.5;">(clique para mudar a nota)</p>
+        </section>
+
+        <footer>
+            Criado por Alan dos Reis Santos &bull; 2024 - 2026
+        </footer>
     </div>
 
-    <div id="canvas-container"></div>
-
-    <main id="main-content">
-        <section class="active">
-            <h1 class="title-reveal">Alan & Você</h1>
-            <p style="letter-spacing: 10px; opacity: 0.5;">SCROLL PARA VIAJAR</p>
-        </section>
-
-        <section>
-            <p class="timer-label" style="color: var(--gold); letter-spacing: 5px;">ESTAMOS CONSTRUINDO ISSO HÁ</p>
-            <div class="big-number" id="days-count">423</div>
-            <p style="font-size: 1.5rem; letter-spacing: 15px;">DIAS</p>
-
-            <div style="margin-top: 30px; font-weight: 100; opacity: 0.7;" id="mini-timer">
-                <span id="h">00</span>h <span id="m">00</span>m <span id="s">00</span>s
-            </div>
-        </section>
-
-        <section>
-            <h2 style="margin-bottom: 50px; font-weight: 100; letter-spacing: 5px;">FRAGMENTOS DE NÓS</h2>
-            <div class="floating-gallery">
-                <div class="photo-card"><img src="https://i.postimg.cc/TLjDYdPZ/8EE59CC8_D9F7_4897_A064_C1B3986E4175.jpg"></div>
-                <div class="photo-card"><img src="https://i.postimg.cc/7G12YH6L/EB4C5835_415D_4F6B_B9F2_185570B49C42.jpg"></div>
-                <div class="photo-card"><img src="https://i.postimg.cc/jnsJDpwW/IMG_1614.jpg"></div>
-                <div class="photo-card"><img src="https://i.postimg.cc/xN0bXwJm/IMG_1620.jpg"></div>
-            </div>
-        </section>
-
-        <section>
-            <div class="hold-box">
-                <div id="secret-message">
-                    "O tempo é relativo, mas meu amor por você é constante. Obrigado por esses 423 dias de felicidade absoluta. Você é minha melhor aventura."
-                </div>
-                <button class="hold-btn" onmousedown="showSecret()" onmouseup="hideSecret()" ontouchstart="showSecret()" ontouchend="hideSecret()">Segure para ler</button>
-            </div>
-            <footer>ALAN DOS REIS SANTOS &bull; 2024-2026</footer>
-        </section>
-    </main>
-
     <script>
-        // Iniciar Experiência
-        function startExperience() {
-            document.getElementById('loader').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('main-content').style.opacity = '1';
-                document.body.style.overflow = 'auto';
-            }, 1500);
-        }
-
-        // Criar Estrelas
-        const container = document.getElementById('canvas-container');
-        for (let i = 0; i < 150; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.width = Math.random() * 3 + 'px';
-            star.style.height = star.style.width;
-            star.style.left = Math.random() * 100 + 'vw';
-            star.style.top = Math.random() * 100 + 'vh';
-            star.style.animationDuration = Math.random() * 3 + 2 + 's';
-            star.style.animationDelay = Math.random() * 5 + 's';
-            container.appendChild(star);
-        }
-
-        // Timer
         const startDate = new Date(2024, 10, 9, 0, 0, 0);
-        function updateTimer() {
+
+        function updateTimers() {
             const now = new Date();
-            const diff = now - startDate;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById('days-count').innerText = days;
-            document.getElementById('h').innerText = now.getHours().toString().padStart(2, '0');
-            document.getElementById('m').innerText = now.getMinutes().toString().padStart(2, '0');
-            document.getElementById('s').innerText = now.getSeconds().toString().padStart(2, '0');
-        }
-        setInterval(updateTimer, 1000);
-        updateTimer();
+            const diffMs = now - startDate;
 
-        // Reveal no Scroll
-        const sections = document.querySelectorAll('section');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.5 });
-        sections.forEach(s => observer.observe(s));
+            let years = now.getFullYear() - startDate.getFullYear();
+            let months = now.getMonth() - startDate.getMonth();
+            let days = now.getDate() - startDate.getDate();
 
-        // Segredo
-        function showSecret() {
-            document.getElementById('secret-message').style.opacity = '1';
-            document.getElementById('secret-message').style.transform = 'scale(1.1)';
+            if (days < 0) {
+                months--;
+                const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+                days += lastMonth;
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            document.getElementById('years').innerText = years;
+            document.getElementById('months').innerText = months;
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = now.getHours().toString().padStart(2, '0');
+            document.getElementById('mins').innerText = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('secs').innerText = now.getSeconds().toString().padStart(2, '0');
+
+            const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            document.getElementById('total-days').innerText = totalDays + " dias";
         }
-        function hideSecret() {
-            document.getElementById('secret-message').style.opacity = '0';
-            document.getElementById('secret-message').style.transform = 'scale(1)';
+
+        setInterval(updateTimers, 1000);
+        updateTimers();
+
+        const quotes = [
+            "\"O amor é a única coisa que transcende o tempo.\"",
+            "\"Cada detalhe teu faz parte da minha paz.\"",
+            "\"423 dias e eu ainda sinto o frio na barriga do primeiro dia.\"",
+            "\"Você é o meu 'pra sempre' favorito.\"",
+            "\"Para onde quer que eu vá, meu coração já está com você.\""
+        ];
+
+        function updateQuote() {
+            const quoteEl = document.getElementById('quote');
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            quoteEl.style.opacity = 0;
+            setTimeout(() => {
+                quoteEl.innerText = randomQuote;
+                quoteEl.style.opacity = 1;
+            }, 300);
         }
     </script>
 </body>
